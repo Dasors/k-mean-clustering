@@ -6,7 +6,7 @@
 
 /*P is the standard deviation factor: 
    Use to adjust the algorithm*/
-#define P 10
+#define P 2
 
 int sum(std::vector<int> vec)
 {
@@ -50,12 +50,11 @@ std::vector<std::vector<int>*> means_clustering( std::vector<int> in)
     int value = E / Nt ; // reference value
     float dp = calculateSD(in)/P;
 
-    int N = 1;
-    std::vector<int>* v = new std::vector<int>;
-    vec.push_back(v);
-
     int pos_0 = 0;
     while(in.size() > 0){
+        std::vector<int>* v = new std::vector<int>;
+        vec.push_back(v);
+
         vec[pos_0]->push_back(in[0]);
         in.erase(in.begin());
         int pos_1 = 0;
@@ -69,13 +68,7 @@ std::vector<std::vector<int>*> means_clustering( std::vector<int> in)
                 pos_1++;
             }
         }
-        pos_0++;
-        if((pos_0) >=  N){
-            std::vector<int>* v = new std::vector<int>;
-            vec.push_back(v);
-            N = N+1;
-        }
-         
+        pos_0++; 
     }
     return vec; 
 }
@@ -92,7 +85,7 @@ int main(void)
     std::vector<int> in6 = {10,10,10,5,2};
     std::vector<int> in7 = {1300,1000,1000,500,200,11465,11541,6546,8797,5465,6544,8787,10,646,9797,7878,5454,554,5456,556,9777,9898,9989,454,454,6847,98};
 
-    std::vector<std::vector<int>*> result_vecs = means_clustering(in);
+    std::vector<std::vector<int>*> result_vecs = means_clustering(in1);
 
     /*printing result*/
     for(int j=0; j<result_vecs.size(); j++){
