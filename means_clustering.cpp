@@ -6,7 +6,7 @@
 
 /*P is the standard deviation factor: 
    Use to adjust the algorithm*/
-#define P 1
+#define P 10
 
 int sum(std::vector<int> vec)
 {
@@ -46,14 +46,13 @@ std::vector<std::vector<int>*> means_clustering( std::vector<int> in)
     std::sort(in.begin(), in.end(), greater());
 
     int E = sum(in);//Sum of all values
-    int N = (int)trunc(sum(in)/in[0]); // Number of groups
-    int value = E / N ; // reference value
+    int Nt = (int)trunc(sum(in)/in[0]); // expected Number of groups
+    int value = E / Nt ; // reference value
     float dp = calculateSD(in)/P;
 
-    for(int i = 0; i < N; i++){
-        std::vector<int>* v = new std::vector<int>;
-        vec.push_back(v);
-    }
+    int N = 1;
+    std::vector<int>* v = new std::vector<int>;
+    vec.push_back(v);
 
     int pos_0 = 0;
     while(in.size() > 0){
@@ -70,15 +69,13 @@ std::vector<std::vector<int>*> means_clustering( std::vector<int> in)
                 pos_1++;
             }
         }
-        
-        if((pos_0+1) <  N){
-            pos_0++;
-        }
-        else{
+        pos_0++;
+        if((pos_0) >=  N){
             std::vector<int>* v = new std::vector<int>;
             vec.push_back(v);
             N = N+1;
         }
+         
     }
     return vec; 
 }
@@ -95,7 +92,7 @@ int main(void)
     std::vector<int> in6 = {10,10,10,5,2};
     std::vector<int> in7 = {1300,1000,1000,500,200,11465,11541,6546,8797,5465,6544,8787,10,646,9797,7878,5454,554,5456,556,9777,9898,9989,454,454,6847,98};
 
-    std::vector<std::vector<int>*> result_vecs = means_clustering(in7);
+    std::vector<std::vector<int>*> result_vecs = means_clustering(in);
 
     /*printing result*/
     for(int j=0; j<result_vecs.size(); j++){
