@@ -1,5 +1,5 @@
 # k-mean-clustering
-Simple algorithm to perform the largest number of clusters considering the average of each group
+C++ Simple algorithm to perform the largest number of clusters considering the average of each group
 The vector input is integer, and the result is stored in a int* vector. The aplication need to insert the free memory
 to avoid the leak memory.
 P is standard deviation (SD) factor. For lower value the SD have more impact in the algorithm
